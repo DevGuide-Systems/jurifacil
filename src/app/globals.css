@@ -10,8 +10,8 @@
 
   /* LIGHT THEME */
   /* BLUE */
-  --blue-primary: #3b5ac2;
-  --blue-secondary: #1a2856;
+  --blue-secondary: #3b5ac2;
+  --blue-primary: #1a2856;
   --blue-light-gradient: linear-gradient(90deg, #1a2856 0%, #334ea9 100%);
 
   /* GRAY SCALE */
@@ -20,8 +20,8 @@
   --gray-300: #121621;
 
   /* DANGER */
-  --danger-primary: #e95f5f;
   --danger-primary: #d71d1d;
+  --danger-secondary: #e95f5f;
 
   /* TEXT */
 
