@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+
+  /* GENERAL */
+  --background: #FFFFFF;
+  --boder: #E2E8F0;
+  --containers-color: #E2E8F0;
+
+  /* LIGHT THEME */
+  /* BLUE */
+  --blue-primary: #3B5AC2;
+  --blue-secondary: #1A2856;
+  --blue-light-gradient: linear-gradient(90deg, #1A2856 0%, #334EA9 100%);
+
+  /* GRAY SCALE */
+  --gray-100: #E2E8F0;
+  --gray-200: #64748b;
+  --gray-300: #121621;
+
+  /* DANGER */
+  --danger-primary: #E95F5F;
+  --danger-primary: #D71D1D;
+
+  /* TEXT */
+
+  /* COLOR */
+  --text-primary: #121621;
+  --text-secondary: #64748B;
+
+  /* FONT */
+
+  --heading-lg: 24px bold;
+  
+
+  
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: "Inter", sans-serif;
+}
