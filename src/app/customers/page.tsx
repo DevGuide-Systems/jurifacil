@@ -6,7 +6,7 @@ export default async function CustomersPage() {
 
   return (
     <main className="flex flex-col p-5 gap-6">
-      <div className=" flex flex-col items-center">
+      <div className="flex flex-col items-center">
         <h1 className="font-bold text-2xl text-[var(--blue-primary)]">
           Clientes Cadastrados
         </h1>
