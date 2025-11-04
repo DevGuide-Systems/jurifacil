@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Customer } from "@/api/customers";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -12,6 +13,12 @@ interface CustomersListProps {
 export default function CustomersList({ customers }: CustomersListProps) {
   const [search, setSearch] = useState("");
   const [filteredCustomers, setFilteredCustomers] = useState(customers);
+
+  const router = useRouter();
+
+  function handleGenerateContract(customerId: string) {
+    router.push(`/customers/${customerId}`);
+  }
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value.toLowerCase();
@@ -74,7 +81,10 @@ export default function CustomersList({ customers }: CustomersListProps) {
             </div>
 
             <div>
-              <Button className="cursor-pointer bg-[var(--blue-secondary)]  hover:bg-[var(--blue-primary)]">
+              <Button
+                className="cursor-pointer bg-[var(--blue-secondary)]  hover:bg-[var(--blue-primary)]"
+                onClick={() => handleGenerateContract(customer.id)}
+              >
                 Gerar Contrato
               </Button>
             </div>
