@@ -1,4 +1,4 @@
-import { getCustomers } from "@/api/customers";
+import { getCustomers } from "@/api/customers/customers";
 import CustomersList from "./components/CustomersList";
 
 export default async function CustomersPage() {
@@ -14,7 +14,7 @@ export default async function CustomersPage() {
           Lista de clientes cadastrados no sistema ADVBOX
         </p>
       </div>
-      <CustomersList customers={customers}/>
+      <CustomersList customers={customers} />
     </main>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Customer } from "@/api/customers";
+import { Customer } from "@/api/customers/customers";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Input } from "../../../components/ui/input";
