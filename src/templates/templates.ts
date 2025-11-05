@@ -13,5 +13,4 @@ export const templates: TemplateType[] = [
   { id: 4, name: "Procuração", file: "procuracao.docx" },
   { id: 5, name: "Termo de Representação e Autorização de Informações Previdenciárias", file: "termo_representacao_autorizacao_informacao.docx" },
   { id: 6, name: "Tempo de Responsabilidade", file: "termo_responsabilidade.docx" },
-  { id: 7, name: "Template Teste", file: "template_teste.docx" }
 ];
