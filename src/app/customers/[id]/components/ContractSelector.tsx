@@ -28,13 +28,28 @@ export default function ContractSelector({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ template: template?.file, customerId }),
         });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Erro ao gerar contrato");
+        if (!res.ok) {
+          const text = await res.text(); // opcional, pega erro do servidor
+          throw new Error(text || "Erro ao gerar contrato");
+        }
 
+        // pega o binário
+        const blob = await res.blob();
+
+        // cria URL temporária
+        const url = window.URL.createObjectURL(blob);
+
+        // pega o nome do arquivo do header
+        const disposition = res.headers.get("Content-Disposition");
+        const match = disposition?.match(/filename="(.+)"/);
+        const fileName = match ? match[1] : "contrato.docx";
+
+        // força o download
         const link = document.createElement("a");
-        link.href = data.url;
-        link.download = data.fileName || "contrato.docx";
+        link.href = url;
+        link.download = fileName;
         link.click();
+        window.URL.revokeObjectURL(url);
       }
     } catch (err) {
       console.error(err);

@@ -41,7 +41,7 @@ export async function POST(req: Request) {
       },
     });
 
-    doc.setData({
+    doc.render({
       name: customer.name || " {{name}} ",
       identification: customer.identification || " {{identification}} ",
       document: customer.document || " {{document}} ",
@@ -71,18 +71,28 @@ export async function POST(req: Request) {
       }),
     });
 
-    doc.render();
-
     const buffer = doc.getZip().generate({ type: "nodebuffer" });
 
-    const outputName = `Contrato-${customer.name.toLowerCase()}-${new Date(Date.now())
+    const outputName = `Contrato-${customer.name.toLowerCase()}-${new Date(
+      Date.now()
+    )
       .toLocaleDateString("pt-BR")
       .replace(/\//g, "-")}.docx`;
-    const outputPath = path.join(process.cwd(), "public", outputName);
-    fs.writeFileSync(outputPath, buffer);
-    
 
-    return NextResponse.json({ url: `/${outputName}`, fileName: outputName });
+    const outputPath = doc.getZip().generate({ type: "nodebuffer" });
+
+    const fileName = `Contrato-${customer.name.toLowerCase()}-${new Date()
+      .toLocaleDateString("pt-BR")
+      .replace(/\//g, "-")}.docx`;
+
+    return new NextResponse(new Uint8Array(buffer), {
+      status: 200,
+      headers: {
+        "Content-Disposition": `attachment; filename="${fileName}"`,
+        "Content-Type":
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      },
+    });
   } catch (err: unknown) {
     console.error("Erro ao gerar contrato:", err);
     return NextResponse.json(
