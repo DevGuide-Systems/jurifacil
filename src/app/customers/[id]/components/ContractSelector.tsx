@@ -29,22 +29,14 @@ export default function ContractSelector({
           body: JSON.stringify({ template: template?.file, customerId }),
         });
         if (!res.ok) {
-          const text = await res.text(); // opcional, pega erro do servidor
+          const text = await res.text();
           throw new Error(text || "Erro ao gerar contrato");
         }
-
-        // pega o binário
         const blob = await res.blob();
-
-        // cria URL temporária
         const url = window.URL.createObjectURL(blob);
-
-        // pega o nome do arquivo do header
         const disposition = res.headers.get("Content-Disposition");
         const match = disposition?.match(/filename="(.+)"/);
         const fileName = match ? match[1] : "contrato.docx";
-
-        // força o download
         const link = document.createElement("a");
         link.href = url;
         link.download = fileName;
