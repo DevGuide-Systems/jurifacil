@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Ignorar a chave do Google Cloud
+jurifacil-fcb150f3fb95.json
