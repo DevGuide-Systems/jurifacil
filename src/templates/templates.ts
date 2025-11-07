@@ -7,10 +7,10 @@ export interface TemplateType {
 }
 
 export const templates: TemplateType[] = [
-  { id: 1, name: "Contrato de Honorários Advocatícios", file: "contrato_honorario_advocaticios.docx" },
-  { id: 2, name: "Declaração de Hipossuficiência", file: "declaracao_hipossuficiencia.docx" },
-  { id: 3, name: "Declaração de Residência", file: "declaracao_residencia.docx" },
-  { id: 4, name: "Procuração", file: "procuracao.docx" },
-  { id: 5, name: "Termo de Representação e Autorização de Informações Previdenciárias", file: "termo_representacao_autorizacao_informacao.docx" },
-  { id: 6, name: "Tempo de Responsabilidade", file: "termo_responsabilidade.docx" },
+  { id: 1, name: "BEN. CONT 6", file: "ben-cont-6.docx" },
+  { id: 2, name: "Aceite de Acordo", file: "aceite-acordo.docx" },
+  { id: 3, name: "Adesão Individual", file: "adesao-individual.docx" },
+  { id: 4, name: "BB para BB Pessoa Física", file: "bb-pessoa-fisica.docx" },
+  { id: 5, name: "Direção de Prazo", file: "direcao-prazo.docx" },
+  { id: 6, name: "Expedição de RPV", file: "expedicao-rpv.docx" },
 ];
