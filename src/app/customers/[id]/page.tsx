@@ -12,7 +12,7 @@ export default async function CustomerPage({ params }: CustomerPageProps) {
 
   return (
     <>
-      <div className="mx-10">
+      <div className="mx-5 min-[768px]:mx-10">
         <BackButton text="voltar" icon={ArrowLeft} />
       </div>
       <main className="flex flex-col p-5 gap-6">
