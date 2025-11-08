@@ -18,11 +18,11 @@ export default function ContractSelector({
 
   const handleGenerateDocx = async () => {
     if (selected.length === 0) return;
-
     setLoading(true);
+
     try {
       for (const id of selected) {
-        const template = templates.find((t) => t.id === id);
+        const template = templates.find((template) => template.id === id);
         const res = await fetch("/api/contracts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -49,32 +49,6 @@ export default function ContractSelector({
       setLoading(false);
     }
   };
-
-  // const handleGeneratePdf = async () => {
-  //   if (selected.length === 0) return;
-
-  //   setLoading(true);
-  //   try {
-  //     const selectedTemplates = templates
-  //       .filter((t) => selected.includes(t.id))
-  //       .map((t) => t.file);
-
-  //     const res = await fetch("/api/pdfs", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ customerId, templates: selectedTemplates }),
-  //     });
-
-  //     const data = await res.json();
-  //     if (!res.ok) throw new Error(data.error || "Erro ao gerar PDF");
-
-  //     window.open(data.pdfUrls[0], "_blank");
-  //   } catch (err) {
-  //     console.error(err);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   return (
     <div className="flex flex-col gap-6 space-y-2 md:mx-20 lg:mx-60">
@@ -120,14 +94,6 @@ export default function ContractSelector({
         >
           {loading ? "Gerando..." : "Gerar DOCX(s)"}
         </Button>
-
-        {/* <Button
-          disabled={selected.length === 0 || loading}
-          onClick={handleGeneratePdf}
-          className="cursor-pointer bg-green-600 hover:bg-green-700"
-        >
-          {loading ? "Gerando..." : "Gerar PDF Completo"}
-        </Button> */}
       </div>
     </div>
   );

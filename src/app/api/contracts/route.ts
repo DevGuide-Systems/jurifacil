@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import PizZip from "pizzip";
 import Docxtemplater from "docxtemplater";
-import api from "@/api/apiConfig";
+import { getCustomerById } from "@/api/customers/customers";
 
 export async function POST(req: Request) {
   try {
@@ -16,8 +16,13 @@ export async function POST(req: Request) {
       );
     }
 
-    const response = await api.get(`/customers/${customerId}`);
-    const customer = response.data;
+    const customer = await getCustomerById(customerId);
+
+    const gender = customer.gender || "";
+    let nationality = "BRASILEIRO";
+    if (gender.toUpperCase() === "F") {
+      nationality = "BRASILEIRA";
+    }
 
     const templatePath = path.join(
       process.cwd(),
@@ -47,6 +52,7 @@ export async function POST(req: Request) {
       document: customer.document || " {{document}} ",
       cellphone: customer.cellphone || " {{cellphone}} ",
       gender: customer.gender || " {{gender}} ",
+      nationality,
       civilstatus: customer.civil_status || " {{civilstatus}} ",
       phone: customer.phone || " {{phone}} ",
       email: customer.email || " {{email}} ",
@@ -73,17 +79,11 @@ export async function POST(req: Request) {
 
     const buffer = doc.getZip().generate({ type: "nodebuffer" });
 
-    const outputName = `Contrato-${customer.name.toLowerCase()}-${new Date(
-      Date.now()
-    )
-      .toLocaleDateString("pt-BR")
-      .replace(/\//g, "-")}.docx`;
+    const templateName = path.basename(template, path.extname(template));
+    const customerName = customer.name.replace(/\s+/g, "_").toLowerCase();
+    const date = new Date().toISOString().split("T")[0].replace(/-/g, "");
 
-    const outputPath = doc.getZip().generate({ type: "nodebuffer" });
-
-    const fileName = `Contrato-${customer.name.toLowerCase()}-${new Date()
-      .toLocaleDateString("pt-BR")
-      .replace(/\//g, "-")}.docx`;
+    const fileName = `${templateName}-${customerName}-${date}.docx`;
 
     return new NextResponse(new Uint8Array(buffer), {
       status: 200,
