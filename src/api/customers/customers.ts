@@ -3,7 +3,7 @@ import api from "../apiConfig";
 export interface Customer {
   id: string;
   name: string;
-  indentification: string;
+  identification: string;
   document: string;
   cellphone: string;
   gender: string;
