@@ -15,6 +15,7 @@ export default function ContractSelector({
 }: ContractSelectorProps) {
   const [selected, setSelected] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const handleGenerateDocx = async () => {
     if (selected.length === 0) return;
@@ -47,6 +48,32 @@ export default function ContractSelector({
       console.error(err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleUploadDropbox = async () => {
+    if (selected.length === 0) return;
+    setUploading(true);
+
+    try {
+      for (const id of selected) {
+        const template = templates.find((template) => template.id === id);
+        const res = await fetch("/api/contracts/dropbox", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ template: template?.file, customerId }),
+        });
+        const data = await res.json();
+        alert(
+          `Contrato enviado para Dropbox! Link: ${
+            data.link || "Não disponível"
+          }`
+        );
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -93,6 +120,14 @@ export default function ContractSelector({
           className="cursor-pointer bg-[var(--blue-secondary)] hover:bg-[var(--blue-primary)]"
         >
           {loading ? "Gerando..." : "Gerar DOCX(s)"}
+        </Button>
+
+        <Button
+          disabled={selected.length === 0 || uploading}
+          onClick={handleUploadDropbox}
+          className="cursor-pointer bg-[var(--blue-secondary)] hover:bg-[var(--blue-primary)]"
+        >
+          {uploading ? "Enviando..." : "Enviar para Dropbox"}
         </Button>
       </div>
     </div>
