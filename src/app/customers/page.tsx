@@ -1,5 +1,5 @@
 import { getCustomers } from "@/api/customers/customers";
-import CustomersList from "./components/CustomersList";
+import CustomersList from "./_components/customers-list";
 
 export default async function CustomersPage() {
   const customers = await getCustomers();

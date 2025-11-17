@@ -1,6 +1,6 @@
 import { getCustomerById } from "@/api/customers/customers";
-import ContractSelector from "@/app/customers/[id]/components/ContractSelector";
-import BackButton from "@/components/BackButton";
+import ContractSelector from "@/app/customers/[id]/_components/contract-selector";
+import BackButton from "@/components/back-button";
 import { ArrowLeft } from "lucide-react";
 interface CustomerPageProps {
   params: { id: string };
