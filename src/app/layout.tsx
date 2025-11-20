@@ -2,7 +2,8 @@ import Header from "@/components/header";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { Scale } from "lucide-react";
-import logo from "../../public/doc-logo.svg";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ptBR } from "@clerk/localizations";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,11 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={inter.className}>
-      <body className="h-screen flex flex-col">
-        <Header image={logo} text="JuriFácil" icon={Scale} />
-        <main className="flex-1">{children}</main>
-      </body>
-    </html>
+    <ClerkProvider localization={ptBR}>
+      <html lang="pt-BR" className={inter.className}>
+        <body className="h-screen flex flex-col" suppressHydrationWarning>
+          <Header text="JuriFácil" icon={Scale} />
+          <main className="flex-1">{children}</main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
