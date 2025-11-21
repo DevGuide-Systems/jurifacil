@@ -42,3 +42,5 @@ next-env.d.ts
 
 # Ignorar a chave do Google Cloud
 jurifacil-fcb150f3fb95.json
+# clerk configuration (can include secrets)
+/.clerk/
