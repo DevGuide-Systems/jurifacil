@@ -44,3 +44,5 @@ next-env.d.ts
 jurifacil-fcb150f3fb95.json
 # clerk configuration (can include secrets)
 /.clerk/
+
+/src/generated/prisma

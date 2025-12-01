@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client"
+  output   = "..src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Organization {
+  id            String   @id @default(cuid())
+  name          String
+  advboxToken   String
+  adminId       String   // Clerk userId do ADMIN
+  members       OrganizationMember[]
+  contracts     Contract[]
+
+  createdAt     DateTime @default(now())
+}
+
+
+model OrganizationMember {
+  id             String        @id @default(cuid())
+  userId         String        // Clerk userId
+  role           MemberRole    @default(EMPLOYEE)
+
+  organizationId String
+  organization   Organization  @relation(fields: [organizationId], references: [id])
+
+  createdAt      DateTime      @default(now())
+}
+
+enum MemberRole {
+  ADMIN
+  EMPLOYEE
+}
+
+
+model Contract {
+  id              String         @id @default(cuid())
+  organizationId  String
+  organization    Organization   @relation(fields: [organizationId], references: [id])
+
+  createdById     String         // Clerk userId
+  clientId        String         // vindo da ADVBOX
+  processId       String         // vindo da ADVBOX
+
+  googleDocUrl    String
+
+  createdAt       DateTime       @default(now())
+}
+
+
+model GoogleDriveFolder {
+  id              String        @id @default(cuid())
+  organizationId  String        @unique
+  folderId        String        // ID da pasta no Drive
+  createdAt       DateTime      @default(now())
+}
