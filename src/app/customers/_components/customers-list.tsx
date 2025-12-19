@@ -1,10 +1,15 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { Customer } from "@/api/customers/customers";
-import { Button } from "@/components/ui/button";
+import { Customer } from "@/types/customer";
 import { useState } from "react";
 import { Input } from "../../../components/ui/input";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import LawsuitsList from "@/components/lawsuits-list";
 
 interface CustomersListProps {
   customers: Customer[];
@@ -13,12 +18,6 @@ interface CustomersListProps {
 export default function CustomersList({ customers }: CustomersListProps) {
   const [search, setSearch] = useState("");
   const [filteredCustomers, setFilteredCustomers] = useState(customers);
-
-  const router = useRouter();
-
-  function handleGenerateContract(customerId: string) {
-    router.push(`/customers/${customerId}`);
-  }
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value.toLowerCase();
@@ -44,50 +43,17 @@ export default function CustomersList({ customers }: CustomersListProps) {
             key={customer.id}
             className="border rounded-lg p-3 hover:bg-gray-50 transition flex flex-col gap-5 min-[480px]:flex-row items-center justify-between"
           >
-            <div className="w-full flex flex-col items-center min-[480px]:items-start">
-              <p className="font-bold text-[12px] text-[var(--blue-primary)]">
-                {customer.name}
-              </p>
-
-              {customer.email ? (
-                <p className="text-[12px] text-[var(--gray-200)]">
-                  {customer.email}
-                </p>
-              ) : (
-                <p className="text-[12px] text-[var(--danger-secondary)]">
-                  E-mail não cadastrado no sistema
-                </p>
-              )}
-
-              {customer.cellphone ? (
-                <p className="text-[12px] text-[var(--gray-200)]">
-                  {customer.cellphone}
-                </p>
-              ) : (
-                <p className="text-[12px] text-[var(--danger-secondary)]">
-                  Telefone não cadastrado sistema
-                </p>
-              )}
-
-              {customer.street ? (
-                <p className="text-[12px] text-[var(--gray-200)]">
-                  {customer.street}
-                </p>
-              ) : (
-                <p className="text-[12px] text-[var(--danger-secondary)]">
-                  Endereço não cadastrado sistema
-                </p>
-              )}
-            </div>
-
-            <div>
-              <Button
-                className="cursor-pointer bg-[var(--blue-secondary)]  hover:bg-[var(--blue-primary)]"
-                onClick={() => handleGenerateContract(customer.id)}
-              >
-                Gerar Contrato
-              </Button>
-            </div>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1">
+                <div className="flex flex-row items-center justify-between font-bold text-[12px] text-[var(--blue-primary)]">
+                  {customer.name}
+                  <AccordionTrigger className="cursor-pointer" />
+                </div>
+                <AccordionContent>
+                  <LawsuitsList customerId={customer.id} />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </li>
         ))}
       </ul>
