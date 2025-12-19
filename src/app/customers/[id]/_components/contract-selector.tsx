@@ -51,32 +51,6 @@ export default function ContractSelector({
     }
   };
 
-  const handleUploadDropbox = async () => {
-    if (selected.length === 0) return;
-    setUploading(true);
-
-    try {
-      for (const id of selected) {
-        const template = templates.find((template) => template.id === id);
-        const res = await fetch("/api/contracts/dropbox", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ template: template?.file, customerId }),
-        });
-        const data = await res.json();
-        alert(
-          `Contrato enviado para Dropbox! Link: ${
-            data.link || "Não disponível"
-          }`
-        );
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setUploading(false);
-    }
-  };
-
   return (
     <div className="flex flex-col gap-6 space-y-2 md:mx-20 lg:mx-60">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -120,14 +94,6 @@ export default function ContractSelector({
           className="cursor-pointer bg-[var(--blue-secondary)] hover:bg-[var(--blue-primary)]"
         >
           {loading ? "Gerando..." : "Gerar DOCX(s)"}
-        </Button>
-
-        <Button
-          disabled={selected.length === 0 || uploading}
-          onClick={handleUploadDropbox}
-          className="cursor-pointer bg-[var(--blue-secondary)] hover:bg-[var(--blue-primary)]"
-        >
-          {uploading ? "Enviando..." : "Enviar para Dropbox"}
         </Button>
       </div>
     </div>
