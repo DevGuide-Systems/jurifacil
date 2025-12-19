@@ -4,14 +4,15 @@ import Link from "next/link";
 
 interface BackButtonProps {
   text: string;
+  page: string;
   icon: ElementType;
 }
 
-export default function BackButton({ text, icon: Icon }: BackButtonProps) {
+export default function BackButton({ text, icon: Icon, page }: BackButtonProps) {
   return (
     <Button className="cursor-pointer bg-[var(--blue-secondary)]  hover:bg-[var(--blue-primary)]">
       <Icon />
-      <Link href="/customers">{text}</Link>
+      <Link href={page}>{text}</Link>
     </Button>
   );
 }

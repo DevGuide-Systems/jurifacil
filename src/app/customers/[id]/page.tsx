@@ -13,7 +13,7 @@ export default async function CustomerPage({ params }: CustomerPageProps) {
   return (
     <>
       <div className="mx-5 min-[768px]:mx-10">
-        <BackButton text="voltar" icon={ArrowLeft} />
+        <BackButton text="voltar" icon={ArrowLeft} page="/customers"/>
       </div>
       <main className="flex flex-col p-5 gap-6">
         <div className="flex flex-col items-center">
