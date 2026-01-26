@@ -24,7 +24,7 @@ export default function CustomersList({ customers }: CustomersListProps) {
     setSearch(value);
 
     const filtered = customers.filter((customer) =>
-      customer.name.toLowerCase().includes(value)
+      customer.name.toLowerCase().includes(value),
     );
     setFilteredCustomers(filtered);
   }
@@ -41,14 +41,16 @@ export default function CustomersList({ customers }: CustomersListProps) {
         {filteredCustomers.map((customer) => (
           <li
             key={customer.id}
-            className="border rounded-lg p-3 hover:bg-gray-50 transition flex flex-col gap-5 min-[480px]:flex-row items-center justify-between"
+            className="border rounded-lg p-3 hover:bg-gray-50 transition flex flex-col w-full gap-5 min-[480px]:flex-row"
           >
-            <Accordion type="single" collapsible>
-              <AccordionItem value="item-1">
-                <div className="flex flex-row items-center justify-between font-bold text-[12px] text-[var(--blue-primary)]">
+            <Accordion type="multiple" className="flex w-full">
+              <AccordionItem
+                value="item-1"
+                className="flex flex-col w-full font-bold text-[12px] text-[var(--blue-primary)]"
+              >
+                <AccordionTrigger className="cursor-pointer ">
                   {customer.name}
-                  <AccordionTrigger className="cursor-pointer" />
-                </div>
+                </AccordionTrigger>
                 <AccordionContent>
                   <LawsuitsList customerId={customer.id} />
                 </AccordionContent>

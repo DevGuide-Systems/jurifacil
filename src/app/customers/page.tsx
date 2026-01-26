@@ -5,7 +5,7 @@ export default async function CustomersPage() {
   const customers = await getCustomers();
 
   return (
-    <main className="flex flex-col p-5 gap-6">
+    <div className="flex flex-col p-5 gap-6">
       <div className="flex flex-col items-center">
         <h1 className="font-bold text-2xl text-[var(--blue-primary)]">
           Clientes Cadastrados
@@ -15,6 +15,6 @@ export default async function CustomersPage() {
         </p>
       </div>
       <CustomersList customers={customers} />
-    </main>
+    </div>
   );
 }

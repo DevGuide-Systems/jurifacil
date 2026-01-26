@@ -33,8 +33,7 @@ export default function LawsuitsList({ customerId }: { customerId: string }) {
           throw new Error("Erro ao buscar processos do cliente");
         }
 
-        const customerData: CustomerLawsuitsResponse =
-          await customerRes.json();
+        const customerData: CustomerLawsuitsResponse = await customerRes.json();
 
         if (!customerData.lawsuits.length) {
           setLawsuitsDetails([]);
@@ -45,11 +44,11 @@ export default function LawsuitsList({ customerId }: { customerId: string }) {
           fetch(`/api/lawsuits/${lawsuit.lawsuit_id}`).then((res) => {
             if (!res.ok) {
               throw new Error(
-                `Erro ao buscar detalhes do processo ${lawsuit.lawsuit_id}`
+                `Erro ao buscar detalhes do processo ${lawsuit.lawsuit_id}`,
               );
             }
             return res.json() as Promise<LawsuitDetails>;
-          })
+          }),
         );
 
         const details = await Promise.all(detailsPromises);
@@ -89,10 +88,7 @@ export default function LawsuitsList({ customerId }: { customerId: string }) {
 
         {!loading && error && (
           <TableRow>
-            <TableCell
-              colSpan={5}
-              className="text-center text-destructive"
-            >
+            <TableCell colSpan={5} className="text-center text-destructive">
               {error}
             </TableCell>
           </TableRow>
@@ -113,16 +109,12 @@ export default function LawsuitsList({ customerId }: { customerId: string }) {
           !error &&
           lawsuitsDetails.map((details) => (
             <TableRow key={details.id}>
-              <TableCell>
-                {details.process_number ?? "Não informado"}
-              </TableCell>
+              <TableCell>{details.process_number ?? "Não informado"}</TableCell>
               <TableCell>{details.type ?? "Não informado"}</TableCell>
               <TableCell>{details.group ?? "Não informado"}</TableCell>
               <TableCell>{details.stage ?? "Não informado"}</TableCell>
               <TableCell>
-                <Button className="cursor-pointer">
-                  Gerar Documento
-                </Button>
+                <Button className="cursor-pointer">Gerar Documento</Button>
               </TableCell>
             </TableRow>
           ))}
